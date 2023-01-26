@@ -1,11 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "fRR5JhW0ph7gA5h6sW8d6/jnNlMMsSxxGurFSELeHhb4uTE5L7jtsUqjFiR21/mRIXUWDy4F9VWVKe6Q+LHPAA==",
+  "dgSpecHash": "2TqDFgG49UaSFoxOKBzu94a4IvYj0tXqP3hjTPOENtAoYHuFuyaydQS/zl9bcoDQESd0wUqKKAIu5lKf21z9ZA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\GLOBB\\Desktop\\HomeWork10\\HomeWork10\\HomeWork10.csproj",
+  "projectFilePath": "C:\\Users\\soloduhin\\Desktop\\Hw\\HomeWork10\\HomeWork10\\HomeWork10.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\GLOBB\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
-    "C:\\Users\\GLOBB\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
+    "C:\\Users\\soloduhin\\.nuget\\packages\\newtonsoft.json\\12.0.1\\newtonsoft.json.12.0.1.nupkg.sha512",
+    "C:\\Users\\soloduhin\\.nuget\\packages\\newtonsoft.json.bson\\1.0.2\\newtonsoft.json.bson.1.0.2.nupkg.sha512"
   ],
   "logs": []
 }

@@ -1,4 +1,5 @@
 ﻿using HomeWork10.DataBases;
+using HomeWork10.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace HomeWork10
 {
-    public class Client
+    public class Client: ITimeCheck
     {
         public int Id { get; set; }
 
@@ -17,11 +18,13 @@ namespace HomeWork10
 
         public string PhoneNumber { get; set; }
 
-        public string DocDataSeries { get; private set; }
-        public string DocDataNumber { get; private set; }
+        public string DocDataSeries { get; set; }
+        public string DocDataNumber { get; set; }
+        public DateTime CheckDate { get; set; }
+        public string UserType { get; set; }
 
-
-        public Client()
+        //Добавил время изменения данных и кто менял данные, просто не совсем понимаю что значит тип изменения данных и какие данные были изменены и куда это записывать
+        public Client(Consultant consultant)
         {
             Id = new Random().Next(0, 9999999);
 
@@ -29,7 +32,7 @@ namespace HomeWork10
                 ClientDB.Clients = new List<Client>();
 
             while(ClientDB.Clients.Exists(x => x.Id == Id))
-                Id = new Random().Next(0, 19999);
+                Id = new Random().Next(0, 9999999);
 
             Name = "Test";
             LastName = "Test sur";
@@ -39,16 +42,19 @@ namespace HomeWork10
 
             DocDataSeries = "9231";
             DocDataNumber = "232543";
+
+            CheckDate = DateTime.Now;
+
+            if(consultant != null)
+                UserType = consultant.UserType;
         }
 
-        public Client(string name, string lastName, string secondName, string phoneNumber, string docDataSeries, string docDataNumber)
+        public void CheckData(Consultant consultant)
         {
-            Name = name;
-            LastName = lastName;
-            SecondName = secondName;
-            PhoneNumber = phoneNumber;
-            DocDataSeries = docDataSeries;
-            DocDataNumber = docDataNumber;
+            if (CheckDate != DateTime.Now)
+                CheckDate = DateTime.Now;
+
+            UserType = consultant.UserType;
         }
     }
 }

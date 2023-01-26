@@ -36,8 +36,6 @@ namespace HomeWork10
             this.mainWindow = mainWindow;
             this.currentUser = consultant;
 
-            currentClient = new Client();
-
             InitUsers();
         }
 
@@ -57,19 +55,61 @@ namespace HomeWork10
         {
             ClientInfo.Visibility = Visibility.Visible;
             
-            var index = ((sender as ListBox).SelectedIndex);
+            var index = (sender as ListBox).SelectedIndex;
 
-            currentClient = ClientsList.Items[index] as Client; 
+            if (index <= 0)
+                return;
+
+            currentClient = ClientDB.Clients[index];
+
             if(currentClient != null) 
             {
                 UName.Text = currentClient.Name;
                 ULastName.Text = currentClient.LastName;
+                USecondName.Text = currentClient.SecondName;
+
+                Seria.Text = currentClient.DocDataSeries;
+                Number.Text = currentClient.DocDataNumber;
+
+                PhoneNumber.Text = currentClient.PhoneNumber;
+            }
+
+            SetElementsActive();
+        }
+
+        private void SetElementsActive()
+        {
+            bool isManager = currentUser.UserType == "Consultant" ? false : true;
+
+            UName.IsEnabled = isManager;
+            ULastName.IsEnabled = isManager;
+            USecondName.IsEnabled = isManager;
+            Seria.IsEnabled = isManager;
+            Number.IsEnabled = isManager;
+            Seria.IsEnabled = isManager;
+
+            if (!isManager)
+            {
+                var tS = Seria.Text.ToCharArray();
+                var nS = Number.Text.ToCharArray();
+
+                var sOut = "";
+                var nOut = "";
+
+                for (int i = 0; i < tS.Length; i++)
+                    sOut += '*';
+
+                for (int i = 0; i < nS.Length; i++)
+                    nOut += '*';
+
+                Seria.Text = sOut;
+                Number.Text = nOut;
             }
         }
 
         private void AddUser()
         {
-            var newCl = new Client();
+            var newCl = new Client(currentUser);
             ClientsList.Items.Add(newCl);
             SetClientInfo(newCl);
         }
@@ -95,15 +135,50 @@ namespace HomeWork10
 
             if (ClientDB.Clients == null) return;
 
+            clientDB.Save();
+
             foreach (var client in ClientDB.Clients)
             {
-                ClientsList.Items.Add(client);
+                ClientsList.Items.Add(client.Name);
             }
         }
 
-        private void ClientsList_Selected(object sender, RoutedEventArgs e)
+        private void Save()
         {
-            
+            if (currentClient != null)
+            {
+                var client = ClientDB.Clients.Find(x => currentClient.Id == x.Id);
+
+                if (client != null)
+                {
+                    client.PhoneNumber = PhoneNumber.Text;
+                    client.Name = UName.Text;
+                    client.LastName = ULastName.Text;
+                    client.SecondName = USecondName.Text;
+
+                    if (currentUser.UserType == "Manager")
+                    {
+                        client.DocDataSeries = Seria.Text;
+                        client.DocDataNumber = Number.Text;
+                    }
+
+                    client.CheckData(currentUser);
+                }
+
+                clientDB.Save();
+                RebuildListBox();
+            }
+        }
+
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
+        }
+
+        private void BackButton_Click(object sender, RoutedEventArgs e)
+        {
+            Save();
+            mainWindow.Content = new MainPage(mainWindow);
         }
     }
 }
