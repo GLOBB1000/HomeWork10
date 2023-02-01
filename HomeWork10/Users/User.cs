@@ -66,7 +66,5 @@ namespace HomeWork10.Users
                 new ClientDB().Save();
             }
         }
-
-        public abstract void ChangeClient(Client client);
     }
 }

@@ -31,6 +31,7 @@
             <Label Content="Serias" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="152,246,0,0" VerticalAlignment="Top" Width="86"/>
             <Label Content="Number" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="288,246,0,0" VerticalAlignment="Top" Width="86"/>
             <Label Content="Phone number" HorizontalContentAlignment="Left" VerticalContentAlignment="Center" HorizontalAlignment="Left" Margin="100,318,0,0" VerticalAlignment="Top" Width="104"/>
+            <Button Name="DelButton" Content="X" Visibility="Visible" Width="20" Height="20" HorizontalAlignment="Left" Margin="399,84,0,0" VerticalAlignment="Top" Click="Delete"/>
 
         </Grid>
 

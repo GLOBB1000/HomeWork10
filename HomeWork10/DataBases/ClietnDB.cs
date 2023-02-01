@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace HomeWork10.DataBases
 {
-    internal class ClientDB : DataBase
+    internal class ClientDB : DataBase<Client>
     {
         public static List<Client>? Clients { get; set; }
 
@@ -39,9 +39,12 @@ namespace HomeWork10.DataBases
                 File.Create(PathToDB);
         }
 
-        public override void Delete()
+        public override void Delete(Client client)
         {
-            throw new NotImplementedException();
+            if (client != null)
+                Clients.Remove(client);
+
+            Save();
         }
 
         public override void Load()

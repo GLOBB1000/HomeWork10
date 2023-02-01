@@ -97,7 +97,7 @@ namespace HomeWork10
 
         private void SetElementsActive()
         {
-            bool isManager = currentUser.U_Type == "Consultant" ? false : true;
+            bool isManager = currentUser.U_Type == "Manager" ? true : false;
 
             UName.IsEnabled = isManager;
             ULastName.IsEnabled = isManager;
@@ -105,6 +105,7 @@ namespace HomeWork10
             Seria.IsEnabled = isManager;
             Number.IsEnabled = isManager;
             Seria.IsEnabled = isManager;
+            DelButton.Visibility = isManager ? Visibility.Visible : Visibility.Hidden;
 
             if (!isManager)
             {
@@ -148,6 +149,14 @@ namespace HomeWork10
             currentUser.InitClient(currentClient);
             currentUser.Save(PhoneNumber.Text, UName.Text, USecondName.Text, ULastName.Text, Seria.Text, Number.Text);
             mainWindow.Content = new MainPage(mainWindow);
+        }
+
+        private void Delete(object sender, RoutedEventArgs e)
+        {
+            clientDB.Delete(currentClient);
+            RebuildListBox();
+
+            ClientInfo.Visibility = Visibility.Hidden;
         }
     }
 }

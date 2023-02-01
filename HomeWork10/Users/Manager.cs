@@ -24,11 +24,6 @@ namespace HomeWork10.Users
             base.InitClient(client);
         }
 
-        public override void ChangeClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
         public void AddUser(ListBox listBox)
         {
             var newCl = new Client(this);

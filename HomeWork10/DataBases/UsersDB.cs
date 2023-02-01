@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 namespace HomeWork10.DataBases
 {
-    public class UsersDB : DataBase
+    public class UsersDB : DataBase<User>
     { 
         public static List<User>? Users { get; set; }
 
@@ -39,7 +39,7 @@ namespace HomeWork10.DataBases
                 File.Create(PathToDB);
         }
 
-        public override void Delete()
+        public override void Delete(User user)
         {
             throw new NotImplementedException();
         }

@@ -24,11 +24,6 @@ namespace HomeWork10.Users
             base.InitClient(client);
         }
 
-        public override void ChangeClient(Client client)
-        {
-            throw new NotImplementedException();
-        }
-
         public override void Save(string phone, string name, string surname, string lastName, string seria, string number)
         {
             base.Save(phone, name, surname, lastName, seria, number);
