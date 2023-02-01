@@ -13,6 +13,6 @@ namespace HomeWork10
 
         public string UserType { get; set; }
 
-        public abstract void CheckData(Consultant consultant);
+        public abstract void CheckData(User user);
     }
 }

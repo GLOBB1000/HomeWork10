@@ -22,14 +22,14 @@ namespace HomeWork10
     /// </summary>
     public partial class MainPage : Page
     {
-        private ConsultantDB consultantDB;
+        private UsersDB consultantDB;
         private Window mainWindow;
 
         public MainPage(Window mainWindow)
         {
             InitializeComponent();
 
-            consultantDB = new ConsultantDB();
+            consultantDB = new UsersDB();
             consultantDB.Load();
             this.mainWindow = mainWindow;
         }
@@ -42,17 +42,17 @@ namespace HomeWork10
 
         private void LoginCon(object sender, RoutedEventArgs e)
         {
-            if (ConsultantDB.Consultants == null)
-                ConsultantDB.Consultants = new List<Consultant>();
+            if (UsersDB.Users == null)
+                UsersDB.Users = new List<User>();
 
-            if (!string.IsNullOrEmpty(Login.Text) && !ConsultantDB.Consultants.Exists(x => x.Login == Login.Text))
+            if (!string.IsNullOrEmpty(Login.Text) && !UsersDB.Users.Exists(x => x.Login == Login.Text))
                 ErrorText.Text = "Consultant not found. Please create it";
 
             else
             {
-                if (!string.IsNullOrEmpty(Pass.Password) && ConsultantDB.Consultants.Exists(x => x.Login == Login.Text && x.Password == Pass.Password))
+                if (!string.IsNullOrEmpty(Pass.Password) && UsersDB.Users.Exists(x => x.Login == Login.Text && x.Password == Pass.Password))
                 {
-                    var curCons = ConsultantDB.Consultants.Find(x => x.Login == Login.Text);
+                    var curCons = UsersDB.Users.Find(x => x.Login == Login.Text);
 
                     if(curCons != null)
                         mainWindow.Content = new ClientListWindow(mainWindow, curCons);

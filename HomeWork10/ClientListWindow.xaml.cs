@@ -23,32 +23,49 @@ namespace HomeWork10
     public partial class ClientListWindow : Page
     {
         private Window mainWindow;
-        private Consultant currentUser;
+        private User currentUser;
 
         private Client currentClient;
 
         private ClientDB clientDB = new ClientDB();
 
-        public ClientListWindow(Window mainWindow, Consultant consultant)
+        public ClientListWindow(Window mainWindow, User user)
         {
             InitializeComponent();
 
             this.mainWindow = mainWindow;
-            this.currentUser = consultant;
+            this.currentUser = user;
 
             InitUsers();
         }
 
         private void InitUsers()
         {
-            if(currentUser.UserType == "Consultant")
+            if(currentUser.U_Type == "Consultant")
                 AddButton.Visibility = Visibility.Hidden;
 
             else
-                AddButton.Visibility= Visibility.Visible;
+                AddButton.Visibility = Visibility.Visible;
 
             clientDB.Load();
             RebuildListBox();
+        }
+
+
+        private void RebuildListBox()
+        {
+            ClientsList.Items.Clear();
+
+            if (ClientsList == null)
+                return;
+
+            if (ClientDB.Clients == null)
+                ClientDB.Clients = new List<Client>();
+
+            foreach (var client in ClientDB.Clients)
+            {
+                ClientsList.Items.Add(client.Name);
+            }
         }
 
         private void ListBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -57,12 +74,13 @@ namespace HomeWork10
             
             var index = (sender as ListBox).SelectedIndex;
 
-            if (index <= 0)
+            if (index < 0)
                 return;
 
             currentClient = ClientDB.Clients[index];
+            currentUser.InitClient(currentClient);
 
-            if(currentClient != null) 
+            if (currentClient != null) 
             {
                 UName.Text = currentClient.Name;
                 ULastName.Text = currentClient.LastName;
@@ -79,7 +97,7 @@ namespace HomeWork10
 
         private void SetElementsActive()
         {
-            bool isManager = currentUser.UserType == "Consultant" ? false : true;
+            bool isManager = currentUser.U_Type == "Consultant" ? false : true;
 
             UName.IsEnabled = isManager;
             ULastName.IsEnabled = isManager;
@@ -107,77 +125,28 @@ namespace HomeWork10
             }
         }
 
-        private void AddUser()
-        {
-            var newCl = new Client(currentUser);
-            ClientsList.Items.Add(newCl);
-            SetClientInfo(newCl);
-        }
-
         private void AddButton_Click(object sender, RoutedEventArgs e)
         {
-            AddUser();
-        }
-
-        private void SetClientInfo(Client client)
-        {
-            if(ClientDB.Clients == null) 
-                ClientDB.Clients = new List<Client>();
-
-            ClientDB.Clients.Add(client);
-            clientDB.Save();
-            RebuildListBox();
-        }
-
-        private void RebuildListBox()
-        {
-            ClientsList.Items.Clear();
-
-            if (ClientDB.Clients == null) return;
-
-            clientDB.Save();
-
-            foreach (var client in ClientDB.Clients)
+            if (currentUser.U_Type == "Manager")
             {
-                ClientsList.Items.Add(client.Name);
-            }
-        }
+                var manager = (Manager)currentUser;
+                manager.AddUser(ClientsList);
 
-        private void Save()
-        {
-            if (currentClient != null)
-            {
-                var client = ClientDB.Clients.Find(x => currentClient.Id == x.Id);
-
-                if (client != null)
-                {
-                    client.PhoneNumber = PhoneNumber.Text;
-                    client.Name = UName.Text;
-                    client.LastName = ULastName.Text;
-                    client.SecondName = USecondName.Text;
-
-                    if (currentUser.UserType == "Manager")
-                    {
-                        client.DocDataSeries = Seria.Text;
-                        client.DocDataNumber = Number.Text;
-                    }
-
-                    client.CheckData(currentUser);
-                }
-
-                clientDB.Save();
                 RebuildListBox();
             }
         }
 
         private void SaveButton_Click(object sender, RoutedEventArgs e)
         {
-            Save();
+            currentUser.InitClient(currentClient);
+            currentUser.Save(PhoneNumber.Text, UName.Text, USecondName.Text, ULastName.Text, Seria.Text, Number.Text);
+            RebuildListBox();
         }
 
         private void BackButton_Click(object sender, RoutedEventArgs e)
         {
-            Save();
+            currentUser.InitClient(currentClient);
+            currentUser.Save(PhoneNumber.Text, UName.Text, USecondName.Text, ULastName.Text, Seria.Text, Number.Text);
             mainWindow.Content = new MainPage(mainWindow);
         }
     }

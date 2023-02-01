@@ -2,9 +2,6 @@
 using HomeWork10.Users;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork10
 {
@@ -24,7 +21,7 @@ namespace HomeWork10
         public string UserType { get; set; }
 
         //Добавил время изменения данных и кто менял данные, просто не совсем понимаю что значит тип изменения данных и какие данные были изменены и куда это записывать
-        public Client(Consultant consultant)
+        public Client(User user)
         {
             Id = new Random().Next(0, 9999999);
 
@@ -45,16 +42,16 @@ namespace HomeWork10
 
             CheckDate = DateTime.Now;
 
-            if(consultant != null)
-                UserType = consultant.UserType;
+            if(user != null)
+                UserType = user.U_Type;
         }
 
-        public void CheckData(Consultant consultant)
+        public void CheckData(User user)
         {
             if (CheckDate != DateTime.Now)
                 CheckDate = DateTime.Now;
 
-            UserType = consultant.UserType;
+            UserType = user.U_Type;
         }
     }
 }

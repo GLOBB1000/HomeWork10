@@ -48,8 +48,15 @@ namespace HomeWork10.DataBases
         {
             if (File.Exists(PathToDB))
             {
-                var json = File.ReadAllText(PathToDB);
-                Clients = JsonConvert.DeserializeObject<List<Client>>(json);
+                try
+                {
+                    var json = File.ReadAllText(PathToDB);
+                    Clients = JsonConvert.DeserializeObject<List<Client>>(json);
+                }
+                catch(Exception ex)
+                {
+                    Console.WriteLine(ex);
+                }
             }
         }
 

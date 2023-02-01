@@ -22,12 +22,15 @@ namespace HomeWork10
     /// </summary>
     public partial class CreateConsultantWindow : Page
     {
-        private ConsultantDB consultantDB;
+        private UsersDB consultantDB;
         private Window mainWindow;
+
+        private User newUser;
+
         public CreateConsultantWindow(Window mainWindow)
         {
             InitializeComponent();
-            consultantDB = new ConsultantDB();
+            consultantDB = new UsersDB();
             this.mainWindow = mainWindow;
         }
 
@@ -36,10 +39,10 @@ namespace HomeWork10
             if (string.IsNullOrEmpty(Login.Text) || string.IsNullOrEmpty(Pass.Password) || string.IsNullOrEmpty(PassRep.Password))
                 return;
 
-            if (ConsultantDB.Consultants == null)
+            if (UsersDB.Users == null)
                 consultantDB.Load();
 
-            if (ConsultantDB.Consultants.Exists(x => x.Login == Login.Text))
+            if (UsersDB.Users.Exists(x => x.Login == Login.Text))
             {
                 Username.Text = "User name is busy";
                 Login.Background = Brushes.Red;
@@ -54,13 +57,18 @@ namespace HomeWork10
                 Username.Text = "Please select user type";
                 return;
             }
-                
-            var newConsultant = new Consultant(Login.Text, Pass.Password, uType.Content.ToString());
 
-            if (ConsultantDB.Consultants == null)
-                ConsultantDB.Consultants = new List<Consultant>();
+            if (uType.Content.ToString() == "Manager")
+                newUser = new Manager(Login.Text, Pass.Password, uType.Content.ToString());
 
-            ConsultantDB.Consultants.Add(newConsultant);
+            else
+                newUser = new Consultant(Login.Text, Pass.Password, uType.Content.ToString());
+
+
+            if (UsersDB.Users == null)
+                UsersDB.Users = new List<User>();
+
+            UsersDB.Users.Add(newUser);
             consultantDB.Save();
 
             mainWindow.Content = new MainPage(mainWindow);
