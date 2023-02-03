@@ -158,5 +158,11 @@ namespace HomeWork10
 
             ClientInfo.Visibility = Visibility.Hidden;
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            ClientDB.Clients.Sort();
+            RebuildListBox();
+        }
     }
 }

@@ -2,10 +2,11 @@
 using HomeWork10.Users;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HomeWork10
 {
-    public class Client: ITimeCheck
+    public class Client: ITimeCheck, IComparable<Client>
     {
         public int Id { get; set; }
 
@@ -52,6 +53,19 @@ namespace HomeWork10
                 CheckDate = DateTime.Now;
 
             UserType = user.U_Type;
+        }
+
+        public int CompareTo(Client? other)
+        {
+            if (other == null)
+                return 0;
+
+            if (other.Name.First() > this.Name.First())
+                return -1;
+            else if (other.Name.First() < this.Name.First())
+                return 1;
+            else
+                return 0;
         }
     }
 }

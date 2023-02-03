@@ -4,8 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace HomeWork10.DataBases
 {
@@ -45,6 +43,11 @@ namespace HomeWork10.DataBases
                 Clients.Remove(client);
 
             Save();
+        }
+
+        public void SortClients()
+        {
+            Clients.OrderBy(x => x.Id);
         }
 
         public override void Load()

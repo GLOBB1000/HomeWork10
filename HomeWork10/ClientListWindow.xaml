@@ -39,6 +39,7 @@
         <Button Visibility="Visible" Name="SaveButton" Content="Save" HorizontalAlignment="Left" Margin="15,387,0,0" VerticalAlignment="Top" Grid.Column="1" Click="SaveButton_Click"/>
         <Button Visibility="Visible" Name="BackButton" Content="Back" HorizontalAlignment="Left" Margin="491,387,0,0" VerticalAlignment="Top" Grid.Column="1" Click="BackButton_Click"/>
         <ListBox Name ="ClientsList" d:ItemsSource="{d:SampleData ItemCount=2}" SelectionChanged="ListBox_SelectionChanged" SelectionMode ="Single"/>
+        <Button Content="Sort" HorizontalAlignment="Left" Margin="204,0,0,0" VerticalAlignment="Center" Click="Button_Click"/>
 
 
     </Grid>

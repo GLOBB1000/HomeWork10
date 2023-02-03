@@ -1,9 +1,5 @@
 ﻿using HomeWork10.DataBases;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Controls;
 
 namespace HomeWork10.Users
@@ -13,7 +9,6 @@ namespace HomeWork10.Users
         public Manager(string login, string password, string u_type) : base(login, password, u_type)
         {
         }
-
         public override string Login { get; set; }
         public override string Password { get; set; }
         protected override string u_type { get; set; }
